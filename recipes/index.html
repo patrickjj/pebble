@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe Display</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<body>
+
+    <h1>Recipes</h1>
+    <div id="recipes" class="recipe-grid"></div>
+
+    <button id="showModalBtn">Add New Recipe</button>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Recipe</h2>
+            <form id="addRecipeForm">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" placeholder="Enter title" class="modal-input" required>
+    
+                <label for="ingredients">Ingredients:</label>
+                <textarea id="ingredients" name="ingredients" placeholder="Enter ingredients" class="modal-input" required></textarea>
+    
+                <label for="instructions">Instructions:</label>
+                <textarea id="instructions" name="instructions" placeholder="Enter instructions" class="modal-input" required></textarea>
+    
+                
+                <button type="submit">Add Recipe</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="successModal" class="success-modal">
+        <div class="success-modal-content">
+            <span class="close">&times;</span>
+            <p id="successMessage">Recipe added successfully!</p>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
