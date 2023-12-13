@@ -33,22 +33,25 @@ def add_recipe():
 def get_recipe(recipe_id):
     cursor.execute('SELECT * FROM recipes WHERE id = ?', (recipe_id,))
     recipe = cursor.fetchone()
-    if recipe:
-        return jsonify({'recipe': recipe})
+    row_headers=[x[0] for x in cursor.description]
+    json_data = []
+    json_data.append(dict(zip(row_headers,recipe)))
+    if json_data:
+        return jsonify({'recipes': json_data})
     return jsonify({'message': 'Recipe not found'}), 404
 
-@app.route('/recipes/<int:recipe_id>', methods=['POST'])
-def update_recipe(recipe_id):
-    update_recipe = request.get_json()  # Get JSON data from the request body
-    title = update_recipe.get('title')
-    ingredients = update_recipe.get('ingredients')
-    instructions = update_recipe.get('instructions')
-    cursor.execute('''UPDATE recipes
-                SET title = ?, ingredients= ?, instructions= ?
-                WHERE id = ?;''', (title, ingredients, instructions, recipe_id))
-    conn.commit()
+# @app.route('/recipes/<int:recipe_id>', methods=['POST'])
+# def update_recipe(recipe_id):
+#     update_recipe = request.get_json()  # Get JSON data from the request body
+#     title = update_recipe.get('title')
+#     ingredients = update_recipe.get('ingredients')
+#     instructions = update_recipe.get('instructions')
+#     cursor.execute('''UPDATE recipes
+#                 SET title = ?, ingredients= ?, instructions= ?
+#                 WHERE id = ?;''', (title, ingredients, instructions, recipe_id))
+#     conn.commit()
 
-    return jsonify({'message': 'Recipe updated successfully'})
+#     return jsonify({'message': 'Recipe updated successfully'})
 
 @app.route('/recipes', methods=['GET'])
 def get_all_recipes():
@@ -74,18 +77,23 @@ def delete_recipe(recipe_id):
     else:
         return jsonify({'message': 'Recipe not found'}), 404
     
-@app.route('/recipes/add-category', methods=['POST'])
-def update_category():
+@app.route('/recipes/<int:recipe_id>/update', methods=['POST'])
+def update_recipe(recipe_id):
 
-    # Execute the DELETE query
-    cursor.execute('''ALTER TABLE recipes
-                    ADD rating TINYINT;''')
+    update_recipe = request.get_json()  # Get JSON data from the request body
+    print(update_recipe)
+    new_rating = update_recipe.get('rating')
+    title = update_recipe.get('title')
+    ingredients = update_recipe.get('ingredients')
+    instructions = update_recipe.get('instructions')
+    link = update_recipe.get('link')
+    region = update_recipe.get('region')
+
+    cursor.execute("UPDATE recipes SET rating = ?, title = ?, ingredients = ?, instructions = ?, link = ?, region = ? WHERE id = ?", (new_rating, title, ingredients, instructions, link, region, recipe_id))
+
     conn.commit()
 
-    if cursor.rowcount > 0:
-        return jsonify({'message': 'Recipe deleted successfully'}), 200
-    else:
-        return jsonify({'message': 'Recipe not found'}), 404
+    return jsonify({'message': 'Recipe updated successfully'})
 
 
 if __name__ == '__main__':
