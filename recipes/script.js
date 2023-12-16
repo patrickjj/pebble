@@ -32,7 +32,11 @@ document.getElementById('addRecipeForm').addEventListener('submit', function (ev
     const newRecipe = {
         title: formData.get('title'),
         ingredients: formData.get('ingredients'),
-        instructions: formData.get('instructions')
+        rating: formData.get('rating'),
+        instructions: formData.get('instructions'),
+        region: formData.get('region'),
+        link: formData.get('link'),
+        notes: formData.get('notes')
     };
 
     fetch('http://127.0.0.1:5000/recipes', {

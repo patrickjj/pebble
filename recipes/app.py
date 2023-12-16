@@ -19,11 +19,14 @@ cursor = conn.cursor()
 @app.route('/recipes', methods=['POST'])
 def add_recipe():
     new_recipe = request.get_json()  # Get JSON data from the request body
+    new_rating = new_recipe.get('rating')
     title = new_recipe.get('title')
     ingredients = new_recipe.get('ingredients')
     instructions = new_recipe.get('instructions')
-    cursor.execute('INSERT INTO recipes (title, ingredients, instructions) VALUES (?, ?, ?)',
-                   (title, ingredients, instructions))
+    link = new_recipe.get('link')
+    region = new_recipe.get('region')
+    cursor.execute('INSERT INTO recipes (rating, title, ingredients, instructions, link, region) VALUES (?, ?, ?, ?, ?, ?)',
+                   (new_rating, title, ingredients, instructions, link, region))
     conn.commit()
 
     return jsonify({'message': 'Recipe added successfully'})
