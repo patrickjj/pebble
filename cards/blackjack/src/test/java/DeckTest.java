@@ -1,9 +1,8 @@
-import main.Deck;
-import org.junit.jupiter.api.Test;
-
+import org.junit.Test;
+import org.cards.Deck;
 public class DeckTest {
     @Test
-    void name() {
+    public void name() {
         Deck deck = new Deck();
     }
 }

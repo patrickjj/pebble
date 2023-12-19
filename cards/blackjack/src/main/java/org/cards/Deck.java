@@ -1,6 +1,4 @@
-package main;
-
-import main.Card;
+package org.cards;
 
 public class Deck {
 
