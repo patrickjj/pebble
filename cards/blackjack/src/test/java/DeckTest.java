@@ -1,6 +1,7 @@
+import org.cards.*;
 import org.junit.Test;
-import org.cards.Deck;
-import org.cards.Dealer;
+
+import java.util.ArrayList;
 
 public class DeckTest {
     @Test
@@ -12,6 +13,35 @@ public class DeckTest {
 
     @Test
     public void dealerTest() {
+        int numPlayers = 3;
         Dealer dealer = new Dealer(2);
+        ArrayList<Player> players = new ArrayList<Player>(numPlayers);
+        for (int i = 0; i < numPlayers; i++) {
+            players.add(new Player());
+        }
+        for (Player player : players) {
+            dealer.dealCard(player);
+        }
+        for (Player player : players) {
+            for (Card card : player.cards) {
+                assert card != null;
+            }
+        }
+    }
+
+    @Test
+    public void dealTest() {
+        Game game = new Game(5, 8);
+        game.play();
+
+        for (Player player: game.players) {
+            for (Card card : player.cards) {
+                System.out.println(card);
+            }
+            System.out.println();
+        }
+        for (Card card : game.dealer.cards) {
+            System.out.println(card);
+        }
     }
 }

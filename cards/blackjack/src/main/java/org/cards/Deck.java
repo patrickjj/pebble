@@ -7,6 +7,7 @@ public class Deck {
     private static final int STANDARD_CARDS = 52;
 
     private static int NUM_CARDS;
+    private int cardsDealt = 0;
     //final array as it will never refer to anything else
     private final Card[] cards;
 
@@ -44,5 +45,9 @@ public class Deck {
             output.append(card.toString()).append('\n');
         }
         return output.toString();
+    }
+
+    public Card yield() {
+        return cards[cardsDealt++];
     }
 }
