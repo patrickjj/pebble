@@ -37,11 +37,14 @@ public class DeckTest {
         for (Player player: game.players) {
             for (Card card : player.cards) {
                 System.out.println(card);
+                assert card != null;
+
             }
             System.out.println();
         }
         for (Card card : game.dealer.cards) {
             System.out.println(card);
+            assert card != null;
         }
     }
 }
