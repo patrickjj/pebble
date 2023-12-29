@@ -1,8 +1,23 @@
 package org.cards;
 
+import java.util.ArrayList;
+
 public class Dealer {
 
-    private static final int NUM_DECKS = 1;
-    //final array as it will never refer to anything else
-    private final Deck deck[] = new Deck[NUM_DECKS];
+    private final Deck deck;
+    public ArrayList<Card> cards;
+
+    public Dealer(int numDecks) {
+        deck = new Deck(numDecks);
+        deck.shuffle();
+        cards = new ArrayList<Card>(0);
+    }
+
+    public void dealCard(Player player) {
+        player.cards.add(deck.yield());
+    }
+
+    public void dealCard() {
+        this.cards.add(deck.yield());
+    }
 }
