@@ -1,8 +1,10 @@
 package org.cards;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 
 public class Game {
@@ -32,12 +34,13 @@ public class Game {
             dealer.dealCard();
         }
         for (Player player : players) {
-            while (player.hit()) {
-
+            while (player.hit(dealer.availableCardMap())) {
                 logger.log(Level.INFO, String.format("  Player %o has hit", player.id));
-
                 dealer.dealCard(player);
             }
+        }
+        while (dealer.hit()) {
+            dealer.dealCard();
         }
     }
 

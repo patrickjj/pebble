@@ -1,6 +1,8 @@
 package org.cards;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.HashMap;
 
 public class Dealer {
 
@@ -19,5 +21,30 @@ public class Dealer {
 
     public void dealCard() {
         this.cards.add(deck.yield());
+    }
+
+    public boolean hit() {
+        int cardTotal = 0;
+        int aces = 0;
+        for(Card card : cards) {
+            int val = card.value();
+            if (val == 1) {
+                aces += val;
+            } else {
+                cardTotal += val;
+            }
+        }
+        if (aces > 0) {
+            int remainder = 21 - cardTotal;
+            int numHigh = remainder/11;
+            aces -= numHigh;
+            cardTotal += (aces + numHigh * 11);
+        }
+
+        return cardTotal < 17;
+    }
+
+    public HashMap<Integer, Integer> availableCardMap() {
+        return deck.getAvailableCards();
     }
 }

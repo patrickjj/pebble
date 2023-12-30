@@ -48,4 +48,8 @@ public class DeckTest {
             assert card != null;
         }
     }
+
+    @Test
+    public void test() {
+    }
 }
