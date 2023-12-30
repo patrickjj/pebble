@@ -17,7 +17,7 @@ public class DeckTest {
         Dealer dealer = new Dealer(2);
         ArrayList<Player> players = new ArrayList<Player>(numPlayers);
         for (int i = 0; i < numPlayers; i++) {
-            players.add(new Player());
+            players.add(new Player(null, i+1));
         }
         for (Player player : players) {
             dealer.dealCard(player);
@@ -35,6 +35,7 @@ public class DeckTest {
         game.play();
 
         for (Player player: game.players) {
+            System.out.println(player.id);
             for (Card card : player.cards) {
                 System.out.println(card);
                 assert card != null;
