@@ -59,7 +59,6 @@ public class Player {
         for (HashMap.Entry<Integer, Integer> entry : availableCards.entrySet()) {
             Integer key = entry.getKey();
             Integer value = entry.getValue();
-            System.out.println("Key=" + key + ", Value=" + value);
         }
         logger.log(Level.INFO, String.format("Card total: %d", cardTotal));
         return cardTotal < 17;
