@@ -44,7 +44,7 @@ public class Dealer {
         return cardTotal < 17;
     }
 
-    public HashMap<Integer, Integer> availableCardMap() {
-        return deck.getAvailableCards();
+    public HashMap<Integer, Double> availableCardMap() {
+        return deck.getCardOdds();
     }
 }

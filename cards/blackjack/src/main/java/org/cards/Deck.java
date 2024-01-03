@@ -9,17 +9,25 @@ public class Deck {
 
     private static int NUM_CARDS;
     private int cardsDealt = 0;
+
+    private int cardsRemaining;
     //final array as it will never refer to anything else
     private final Card[] cards;
 
 
-    private HashMap<Integer, Integer> availableCards;
+    private final HashMap<Integer, Integer> availableCards;
+
+
+    private final HashMap<Integer, Double> cardOdds;
 
 
     public Deck(int numDecks) {
         NUM_CARDS = STANDARD_CARDS * numDecks;
+        cardsRemaining = NUM_CARDS;
         cards = new Card[NUM_CARDS];
         availableCards = new HashMap<>();
+        cardOdds = new HashMap<>();
+
         int count = 0;
         for (int j = 0; j < numDecks; j ++) {
             for (int i = 0; i < 13; i++){
@@ -30,6 +38,11 @@ public class Deck {
                 count = availableCards.getOrDefault(i+1, 0);
                 availableCards.put(i+1, count + 4);
             }
+        }
+        for (HashMap.Entry<Integer, Integer> entry : availableCards.entrySet()) {
+            Integer key = entry.getKey();
+            Integer value = entry.getValue();
+            cardOdds.put(key, (value/(double) cardsRemaining));
         }
 
     }
@@ -58,12 +71,15 @@ public class Deck {
 
     public Card yield() {
         Card returnCard = cards[cardsDealt++];
+        cardsRemaining--;
         int rank = returnCard.getRank();
         availableCards.put(rank, availableCards.get(rank) - 1);
+        cardOdds.put(rank, (availableCards.get(rank)/(double) cardsRemaining));
         return returnCard;
     }
 
-    public HashMap<Integer, Integer> getAvailableCards() {
-        return availableCards;
+    public HashMap<Integer, Double> getCardOdds() {
+        return cardOdds;
     }
+
 }
