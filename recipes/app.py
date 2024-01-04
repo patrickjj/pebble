@@ -43,18 +43,6 @@ def get_recipe(recipe_id):
         return jsonify({'recipes': json_data})
     return jsonify({'message': 'Recipe not found'}), 404
 
-# @app.route('/recipes/<int:recipe_id>', methods=['POST'])
-# def update_recipe(recipe_id):
-#     update_recipe = request.get_json()  # Get JSON data from the request body
-#     title = update_recipe.get('title')
-#     ingredients = update_recipe.get('ingredients')
-#     instructions = update_recipe.get('instructions')
-#     cursor.execute('''UPDATE recipes
-#                 SET title = ?, ingredients= ?, instructions= ?
-#                 WHERE id = ?;''', (title, ingredients, instructions, recipe_id))
-#     conn.commit()
-
-#     return jsonify({'message': 'Recipe updated successfully'})
 
 @app.route('/recipes', methods=['GET'])
 def get_all_recipes():
@@ -71,7 +59,6 @@ def get_all_recipes():
 @app.route('/recipes/<int:recipe_id>', methods=['DELETE'])
 def delete_recipe(recipe_id):
 
-    # Execute the DELETE query
     cursor.execute("DELETE FROM recipes WHERE id = ?", (recipe_id,))
     conn.commit()
 
@@ -83,7 +70,7 @@ def delete_recipe(recipe_id):
 @app.route('/recipes/<int:recipe_id>/update', methods=['POST'])
 def update_recipe(recipe_id):
 
-    update_recipe = request.get_json()  # Get JSON data from the request body
+    update_recipe = request.get_json()
     print(update_recipe)
     new_rating = update_recipe.get('rating')
     title = update_recipe.get('title')

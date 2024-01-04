@@ -1,6 +1,6 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, fsans-seri;
-    background-color: #f5f5f5;
+    background-color: #a3a3a3;
     margin: 0;
     padding: 20px;
 }
@@ -18,7 +18,7 @@ h1 {
 }
 
 .recipe {
-    width: calc(45%); /* Adjust width and margin as needed */
+    width: calc(45%);
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -84,13 +84,13 @@ h1 {
 }
 
 .modal-input {
-    width: calc(100% - 22px); /* Adjust padding and borders */
+    width: calc(100% - 22px);
     margin-bottom: 12px;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, fsans-seri;
-    box-sizing: border-box; /* Include padding and border in the width */
+    box-sizing: border-box;
 }
 
 .close {
