@@ -34,3 +34,41 @@ plt.yticks(fontsize=12)
 plt.xlabel("Radius (Ratio to Earth Radius)", fontsize = 30)
 plt.ylabel("Mass (Ratio to Earth Mass)", fontsize = 30)
 plt.show()
+
+
+
+sql = """
+SELECT
+  planet.pl_name AS planet_name,
+  system.hostname AS system_name,
+  system.sy_pnum AS number_of_planets,
+  planet.pl_masse AS planet_mass_ratio,
+  planet.pl_rade
+FROM planet
+JOIN system ON planet.hostname = system.hostname
+WHERE planet.pl_masse BETWEEN 0.5 AND 1.5;
+"""
+
+result = conn.execute(sql).fetchall()
+
+df = pd.DataFrame(result, columns=['planet_name', 'system_name', 'number_of_planets', 'planet_mass_ratio', 'planet_radius'])
+
+plt.figure(figsize=(8, 6))
+
+
+planet_masses = df['planet_mass_ratio'] 
+planet_radii = df['planet_radius']  
+
+
+plt.scatter(planet_masses, planet_radii,  s=planet_radii ** 2 * 200)
+
+
+plt.xlabel("Planet Mass (Earth Mass Ratio)", fontsize=12)
+plt.ylabel("Planet Radius (Earth Radius Ratio)", fontsize=12)
+plt.title("Planet Mass vs. Radius", fontsize=14)
+plt.grid(True)
+
+for i, row in df.iterrows():
+    plt.annotate(row['planet_name'], (planet_masses[i], planet_radii[i]))  # Adjust text position as needed
+
+plt.show()
