@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import sqlite3
+import recipes as r
+import pandas as pd
 
 app = Flask(__name__)
 CORS(app)
@@ -53,7 +55,13 @@ def get_all_recipes():
     for result in recipes:
             json_data.append(dict(zip(row_headers,result)))
     if recipes:
+        # df = pd.json_normalize(json_data)
+        # print(df)
+        # recipe_list = [r.Recipe(**row) for row in df.to_dict('records')]
+        # print(recipe_list)
         return jsonify({'recipes': json_data})
+    
+    
     return jsonify({'message': 'Recipe not found'}), 404
 
 @app.route('/recipes/<int:recipe_id>', methods=['DELETE'])
