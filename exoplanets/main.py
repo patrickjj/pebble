@@ -69,6 +69,6 @@ plt.title("Planet Mass vs. Radius", fontsize=14)
 plt.grid(True)
 
 for i, row in df.iterrows():
-    plt.annotate(row['planet_name'], (planet_masses[i], planet_radii[i]))  # Adjust text position as needed
+    plt.annotate(row['planet_name'], (planet_masses[i], planet_radii[i]))
 
 plt.show()
