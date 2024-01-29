@@ -19,7 +19,7 @@ def find_pair_with_sum(array, target_sum):
   return None
 
 arr = [1, 2, 3, 4, 5, 6, 7, 8]
-arr2 = [8, 7, 6, 5, 4, 3, 2, 1]
+arr2 = [8, 7, 5, 4, 3, 2, 1]
 
 print(find_pair_with_sum(arr, 10))
 print(find_pair_with_sum(arr2, 10)) #fails

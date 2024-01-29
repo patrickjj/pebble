@@ -19,11 +19,22 @@ class ExoplanetAPI:
             JOIN system ON planet.hostname = system.hostname
             WHERE planet.pl_masse BETWEEN {min_value} AND {max_value};
         """
-        # elif mode == "Systems":
-        #     sql_query = f"""
-        #         -- Your system-specific SQL query here
-        #     """
         result = self.conn.execute(sql_query).fetchall()
         df = pd.DataFrame(result, columns=['planet_name', 'system_name', 'number_of_planets', 'planet_mass_ratio', 'planet_radius'])
 
+        return df
+    
+    
+    def query_systems(self, min_stars, max_stars):
+        sql_query = f"""
+            SELECT 
+                system.hostname AS system_name,
+                system.sy_snum AS number_of_stars,
+                planet.pl_name AS planet_name
+            FROM system
+            JOIN planet ON system.hostname = planet.hostname
+            WHERE system.sy_snum BETWEEN {min_stars} AND {max_stars};
+        """
+        result = self.conn.execute(sql_query).fetchall()
+        df = pd.DataFrame(result, columns=['system_name', 'number_of_stars', 'planet_name'])
         return df
